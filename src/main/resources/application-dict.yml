@@ -1,0 +1,14 @@
+app:
+  dicts:
+    record-status:
+      - value: 1
+        name: 启用
+      - value: 2
+        name: 停用
+    sys-user-status:
+      - value: 1
+        name: 有效
+      - value: 2
+        name: 无效
+      - value: 3
+        name: 已锁定

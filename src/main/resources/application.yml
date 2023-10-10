@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    # 环境标识，本机开发环境有意义,如果觉得污染,可以IDEA 传入--spring.profiles.active=local
+    active: local
+    include: db,dict
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  application:
+    name: admin-beacon
+server:
+  port: 8080
+  shutdown: graceful
+  tomcat:
+    basedir: .
+    connection-timeout: 60s
+    threads:
+      max: 2000
+    accesslog:
+      # %h %l %u %t %r %s %b 默认
+      #pattern see https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Logging
+      pattern: '%h %l %u %t %r %s %b %D'
+      enabled: true
+      max-days: 2
+springdoc:
+  api-docs:
+    # 默认是true,关闭选择false
+    enabled: ${api-docs.enabled}
+  swagger-ui:
+    path: /doc.html

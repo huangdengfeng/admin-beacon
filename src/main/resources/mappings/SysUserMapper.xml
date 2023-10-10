@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seezoon.domain.dao.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.seezoon.domain.dao.po.SysUserPO">
+        <id column="uid" jdbcType="INTEGER" property="uid"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="secret_key" jdbcType="VARCHAR" property="secretKey"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="photo" jdbcType="VARCHAR" property="photo"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    uid, user_name, password, secret_key, name, mobile, email, photo, status, create_time, create_user,
+    update_time, update_user, remark
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where uid = #{uid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByUserName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_name = #{userName}
+    </select>
+
+    <select id="selectByCondition" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        <where>
+            <if test="uid != null ">
+                uid = #{uid}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="fuzzyName != null and fuzzyName != ''">
+                and name concat('%', #{fuzzyName}, '%')
+            </if>
+            <if test="status != null ">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where uid = #{uid,jdbcType=INTEGER} limit 2
+  </delete>
+    <insert id="insert" keyColumn="uid" keyProperty="uid"
+            parameterType="com.seezoon.domain.dao.po.SysUserPO" useGeneratedKeys="true">
+    insert into sys_user (user_name, password, secret_key, name,
+      mobile, email, photo, 
+      status, create_time, create_user, 
+      update_time, update_user, remark
+      )
+    values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{secretKey,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.seezoon.domain.dao.po.SysUserPO">
+        update sys_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="secretKey != null">
+                secret_key = #{secretKey,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null">
+                photo = #{photo,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=INTEGER} limit 2
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.seezoon.domain.dao.po.SysUserPO">
+    update sys_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      secret_key = #{secretKey,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER} limit 2
+  </update>
+</mapper>

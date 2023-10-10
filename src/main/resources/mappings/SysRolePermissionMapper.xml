@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seezoon.domain.dao.mapper.SysRolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.seezoon.domain.dao.po.SysRolePermissionPO">
+        <id column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <id column="permission_id" jdbcType="INTEGER" property="permissionId"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    role_id, permission_id, create_user, create_time
+  </sql>
+    <select id="selectByPrimaryKey"
+            parameterType="com.seezoon.domain.dao.po.SysRolePermissionPO$SysRolePermissionKey"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role_permission
+        where role_id = #{roleId,jdbcType=INTEGER}
+        and permission_id = #{permissionId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey"
+            parameterType="com.seezoon.domain.dao.po.SysRolePermissionPO$SysRolePermissionKey">
+    delete from sys_role_permission
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and permission_id = #{permissionId,jdbcType=INTEGER} limit 2
+  </delete>
+
+    <delete id="deleteByPermissionId">
+    delete from sys_role_permission t where t.permission_id = #{permissionId,jdbcType=INTEGER}
+    or exists (select 1 from sys_permission sp where t.permission_id = sp.id and find_in_set(#{permissionId}, sp.parent_ids))
+    </delete>
+
+    <delete id="deleteByRoleId">
+    delete from sys_role_permission where role_id = #{roleId}
+    </delete>
+
+    <insert id="insert">
+    insert into sys_role_permission (role_id, permission_id, create_user, create_time)
+    values (#{roleId},#{permissionId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertBatch">
+        insert into sys_role_permission (role_id, permission_id, create_user, create_time)
+        values
+        <foreach item="item" collection="list" separator=",">
+            (#{roleId},#{permissionId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER},
+            #{createTime,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+    <insert id="insertSelective" parameterType="com.seezoon.domain.dao.po.SysRolePermissionPO">
+        insert into sys_role_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="permissionId != null">
+                permission_id,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="permissionId != null">
+                #{permissionId,jdbcType=INTEGER},
+            </if>
+            <if test="permissionId != null">
+                #{permissionId,jdbcType=INTEGER},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.seezoon.domain.dao.po.SysRolePermissionPO">
+        update sys_role_permission
+        <set>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where role_id = #{roleId,jdbcType=INTEGER}
+        and permission_id = #{permissionId,jdbcType=INTEGER} limit 2
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.seezoon.domain.dao.po.SysRolePermissionPO">
+    update sys_role_permission
+    set create_user = #{createUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where role_id = #{roleId,jdbcType=INTEGER}
+      and permission_id = #{permissionId,jdbcType=INTEGER} limit 2
+  </update>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <logger name="io.lettuce.core" level="ERROR"/>
+    <logger name="org.apache" level="ERROR"/>
+    <logger name="com.zaxxer.hikari.HikariConfig" level="DEBUG"/>
+
+    <!-- 正式部署 see setenv.sh -->
+    <springProfile name="cli">
+        <include resource="logback-file-appender.xml"/>
+        <root level="INFO">
+            <appender-ref ref="AsyncFile"/>
+        </root>
+    </springProfile>
+
+    <!-- 本机开发使用-->
+    <springProfile name="!cli">
+        <logger name="org.springframework" level="INFO"/>
+        <!-- 日志输出级别 -->
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>
