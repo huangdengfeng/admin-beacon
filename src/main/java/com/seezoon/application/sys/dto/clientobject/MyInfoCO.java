@@ -21,6 +21,8 @@ public class MyInfoCO {
     private String photo;
     @Schema(title = "角色编码")
     private List<String> roles;
+    @Schema(title = "角色名称")
+    private List<String> roleNames;
     @Schema(title = "权限编码")
     private List<String> permissions;
 }

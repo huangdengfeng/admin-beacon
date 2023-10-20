@@ -5,6 +5,7 @@ import com.seezoon.application.sys.dto.ModifyUserCmd;
 import com.seezoon.domain.service.sys.ModifyUserService;
 import com.seezoon.domain.service.sys.valueobj.ModifyUserVO;
 import com.seezoon.infrastructure.dto.Response;
+import com.seezoon.infrastructure.error.ErrorCode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class ModifyUserCmdExe {
 
     public Response execute(@Valid @NotNull ModifyUserCmd cmd) {
         Integer userId = SecurityContext.getUserId();
+        if (SecurityContext.isSuperAdmin(userId)) {
+            return Response.error(ErrorCode.SYS_ADMIN_NOT_ALLOW_MODIFY.code(),
+                    ErrorCode.SYS_ADMIN_NOT_ALLOW_MODIFY.msg());
+        }
         ModifyUserVO vo = new ModifyUserVO(cmd.getUid(), cmd.getUserName(), cmd.getName(), cmd.getStatus());
         vo.setMobile(cmd.getMobile());
         vo.setEmail(cmd.getEmail());

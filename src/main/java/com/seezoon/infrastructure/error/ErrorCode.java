@@ -15,15 +15,20 @@ public enum ErrorCode implements ErrorDefinition {
 
     SQL_ERROR(1002, "sql error", true),
 
-    ASSERTION_ERROR(1003, "assertion"),
+    ASSERTION_ERROR(1003, "assertion error"),
 
     FILE_SIZE_INVALID(1004, "文件大小不合法"),
 
     RECORD_NOT_EXISTS(1005, "记录不存在"),
 
+    FILE_UPLOAD_FAILED(1006, "文件上传失败:%s"),
+
+    FILE_NOT_EXISTS(1007, "文件不存在"),
+
     /**
      * 业务错误
      */
+    SYS_ADMIN_NOT_ALLOW_MODIFY(2000, "系统管理员禁止修改"),
     SYS_USER_NAME_EXISTS(2001, "用户名已存在"),
     USER_NOT_EXISTS(2002, "用户不存在"),
     USER_STATUS_INVALID(2003, "用户状态不正常"),

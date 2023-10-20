@@ -1,6 +1,6 @@
 package com.seezoon.application.sys.executor;
 
-import com.seezoon.application.sys.dto.RoleQry;
+import com.seezoon.application.sys.dto.RoleListQry;
 import com.seezoon.application.sys.dto.clientobject.RoleCO;
 import com.seezoon.domain.dao.mapper.SysRoleMapper;
 import com.seezoon.domain.dao.po.SysRolePO;
@@ -24,11 +24,11 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 @Component
 @Validated
-public class RoleQryExe {
+public class RoleListQryExe {
 
     private final SysRoleMapper sysRoleMapper;
 
-    public Response<List<RoleCO>> execute(@Valid @NotNull RoleQry qry) {
+    public Response<List<RoleCO>> execute(@Valid @NotNull RoleListQry qry) {
         List<SysRolePO> pos =
                 qry.isOnlyValid() ? sysRoleMapper.selectValid() : sysRoleMapper.selectAll();
         List<RoleCO> cos = pos.stream()

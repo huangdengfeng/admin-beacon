@@ -4,6 +4,7 @@ import com.seezoon.application.sys.authentication.context.SecurityContext;
 import com.seezoon.application.sys.dto.ModifyUserPwdCmd;
 import com.seezoon.domain.service.sys.ModifyUserService;
 import com.seezoon.infrastructure.dto.Response;
+import com.seezoon.infrastructure.error.ErrorCode;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,12 @@ public class ModifyUserPwdCmdExe {
     private final ModifyUserService modifyUserService;
 
     public Response execute(@Valid @NotNull ModifyUserPwdCmd cmd) {
+        if (SecurityContext.isSuperAdmin(cmd.getUid())) {
+            return Response.error(ErrorCode.SYS_ADMIN_NOT_ALLOW_MODIFY.code(),
+                    ErrorCode.SYS_ADMIN_NOT_ALLOW_MODIFY.msg());
+        }
         Integer operator = SecurityContext.getUserId();
-        modifyUserService.modifyPwd(cmd.getUid(), cmd.getOldPassword(), cmd.getNewPassword(), operator);
+        modifyUserService.modifyPwd(cmd.getUid(), cmd.getPassword(), operator);
         return Response.success();
     }
 }

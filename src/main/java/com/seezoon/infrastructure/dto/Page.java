@@ -10,26 +10,26 @@ import java.util.List;
 public class Page<T> {
 
     private long total;
-    private List<T> list;
+    private List<T> data;
 
     public Page() {
     }
 
     public Page(List<T> list) {
-        this.list = list;
+        this.data = list;
     }
 
     public Page(long total, List<T> list) {
         this.total = total;
-        this.list = list;
+        this.data = list;
     }
 
     public List<T> getData() {
-        return list;
+        return data;
     }
 
     public void setData(List<T> list) {
-        this.list = list;
+        this.data = list;
     }
 
     public long getTotal() {

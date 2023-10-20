@@ -1,6 +1,6 @@
 package com.seezoon.application.sys.executor;
 
-import com.seezoon.application.sys.dto.PermissionQry;
+import com.seezoon.application.sys.dto.PermissionListQry;
 import com.seezoon.application.sys.dto.clientobject.PermissionCO;
 import com.seezoon.domain.dao.mapper.SysPermissionMapper;
 import com.seezoon.domain.dao.po.SysPermissionPO;
@@ -24,11 +24,11 @@ import org.springframework.validation.annotation.Validated;
 @RequiredArgsConstructor
 @Component
 @Validated
-public class PermissionQryExe {
+public class PermissionListQryExe {
 
     private final SysPermissionMapper sysPermissionMapper;
 
-    public Response<List<PermissionCO>> execute(@Valid @NotNull PermissionQry qry) {
+    public Response<List<PermissionCO>> execute(@Valid @NotNull PermissionListQry qry) {
         List<SysPermissionPO> pos =
                 qry.isOnlyValid() ? sysPermissionMapper.selectValid() : sysPermissionMapper.selectAll();
 

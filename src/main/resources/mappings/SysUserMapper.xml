@@ -41,14 +41,17 @@
         <include refid="Base_Column_List"/>
         from sys_user
         <where>
+            <if test="null != includeSysAdmin and !includeSysAdmin">
+                uid != ${@com.seezoon.infrastructure.constants.Constants@SUPER_ADMIN_USER_ID}
+            </if>
             <if test="uid != null ">
-                uid = #{uid}
+                and uid = #{uid}
             </if>
             <if test="userName != null and userName != ''">
                 and user_name = #{userName}
             </if>
             <if test="fuzzyName != null and fuzzyName != ''">
-                and name concat('%', #{fuzzyName}, '%')
+                and name like concat('%', #{fuzzyName}, '%')
             </if>
             <if test="status != null ">
                 and status = #{status}

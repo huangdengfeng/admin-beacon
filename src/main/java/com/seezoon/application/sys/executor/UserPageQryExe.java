@@ -40,6 +40,7 @@ public class UserPageQryExe {
         condition.setUserName(qry.getUserName());
         condition.setFuzzyName(qry.getFuzzyName());
         condition.setStatus(qry.getStatus());
+        condition.setIncludeSysAdmin(false);
         PageHelper.startPage(qry.getPage(), qry.getPageSize(), qry.getOrderBy());
         PageSerializable<SysUserPO> page = new PageSerializable<>(sysUserMapper.selectByCondition(condition));
         List<UserCO> cos = new ArrayList<>();

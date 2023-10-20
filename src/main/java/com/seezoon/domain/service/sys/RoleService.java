@@ -119,7 +119,7 @@ public class RoleService {
         // 检查权限是否合法
         List<Integer> allPermissionIds = sysPermissionMapper.selectAll().stream().map(v -> v.getId())
                 .collect(Collectors.toList());
-        if (!allPermissionIds.contains(permissionIds)) {
+        if (!allPermissionIds.containsAll(permissionIds)) {
             throw ExceptionFactory.bizException(ErrorCode.PERMISSION_LIST_ERROR);
         }
         LocalDateTime now = LocalDateTime.now();

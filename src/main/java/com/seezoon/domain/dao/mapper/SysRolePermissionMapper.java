@@ -22,6 +22,8 @@ public interface SysRolePermissionMapper {
 
     SysRolePermissionPO selectByPrimaryKey(SysRolePermissionKey key);
 
+    List<SysRolePermissionPO> selectByRoleId(Integer roleId);
+
     int updateByPrimaryKeySelective(SysRolePermissionPO row);
 
     int updateByPrimaryKey(SysRolePermissionPO row);

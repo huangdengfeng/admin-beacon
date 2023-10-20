@@ -11,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class ParamCO {
 
+    @Schema(title = "上传文件服务器地址")
+    private String fileUploadUrl;
     @Schema(title = "文件服务器地址")
     private String fileServerUrl;
     @Schema(title = "字典")

@@ -51,7 +51,7 @@ public class AddUserRoleService {
         int deleteRows = sysUserRoleMapper.deleteByUserId(uid);
         log.info("delete uid [{}] role count:{}", uid, deleteRows);
         List<Integer> allRoleIds = sysRoleMapper.selectAll().stream().map(v -> v.getId()).collect(Collectors.toList());
-        if (!allRoleIds.contains(roleIds)) {
+        if (!allRoleIds.containsAll(roleIds)) {
             throw ExceptionFactory.bizException(ErrorCode.ROLE_LIST_ERROR);
         }
         LocalDateTime now = LocalDateTime.now();

@@ -27,6 +27,8 @@ public class ModifyRoleCmd {
     @Schema(title = "状态", description = "字典recore-status")
     @NotNull
     private Byte status;
+
+    @NotNull
     @Schema(title = "权限列表")
     private Set<Integer> permissionIds;
 }

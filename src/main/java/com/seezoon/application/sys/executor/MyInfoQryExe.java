@@ -36,6 +36,7 @@ public class MyInfoQryExe {
         co.setEmail(po.getEmail());
         co.setPhoto(po.getPhoto());
         co.setRoles(userPermissionService.getUserRoles(userId));
+        co.setRoleNames(userPermissionService.getUserRoleNames(userId));
         co.setPermissions(userPermissionService.getPermissions(userId));
         return Response.success(co);
     }

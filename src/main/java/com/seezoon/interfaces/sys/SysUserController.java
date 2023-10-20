@@ -59,8 +59,8 @@ public class SysUserController {
         return modifyUserCmdExe.execute(cmd);
     }
 
-    @PreAuthorize("hasAuthority('sys:user:modify')")
-    @Operation(summary = "修改用户信息")
+    @PreAuthorize("hasAuthority('sys:user:modify_pwd')")
+    @Operation(summary = "修改用户密码")
     @PostMapping("/modify_pwd")
     public Response modifyUserPwd(@RequestBody ModifyUserPwdCmd cmd) {
         return modifyUserPwdCmdExe.execute(cmd);
@@ -68,7 +68,7 @@ public class SysUserController {
 
     @PreAuthorize("hasAuthority('sys:user:qry')")
     @Operation(summary = "个人信息查询")
-    @GetMapping("/qry/{uid}")
+    @GetMapping("/detail/{uid}")
     public Response<UserDetailCO> userDetailQry(@PathVariable Integer uid) {
         UserDetailQry qry = new UserDetailQry(uid);
         return userDetailQryExe.execute(qry);
@@ -76,7 +76,7 @@ public class SysUserController {
 
     @PreAuthorize("hasAuthority('sys:user:qry')")
     @Operation(summary = "分页查询用户信息")
-    @PostMapping("/qry_page")
+    @PostMapping("/page")
     public Response<Page<UserCO>> userPageQry(@RequestBody UserPageQry qry) {
         return userPageQryExe.execute(qry);
     }

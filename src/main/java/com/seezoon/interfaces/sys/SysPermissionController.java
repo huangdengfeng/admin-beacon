@@ -3,12 +3,12 @@ package com.seezoon.interfaces.sys;
 import com.seezoon.application.sys.dto.AddPermissionCmd;
 import com.seezoon.application.sys.dto.DeletePermissionCmd;
 import com.seezoon.application.sys.dto.ModifyPermissionCmd;
-import com.seezoon.application.sys.dto.PermissionQry;
+import com.seezoon.application.sys.dto.PermissionListQry;
 import com.seezoon.application.sys.dto.clientobject.PermissionCO;
 import com.seezoon.application.sys.executor.AddPermissionCmdExe;
 import com.seezoon.application.sys.executor.DeletePermissionCmdExe;
 import com.seezoon.application.sys.executor.ModifyPermissionCmdExe;
-import com.seezoon.application.sys.executor.PermissionQryExe;
+import com.seezoon.application.sys.executor.PermissionListQryExe;
 import com.seezoon.infrastructure.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,15 +32,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/permission")
 public class SysPermissionController {
 
-    private final PermissionQryExe permissionQryExe;
+    private final PermissionListQryExe permissionListQryExe;
     private final AddPermissionCmdExe addPermissionCmdExe;
     private final ModifyPermissionCmdExe modifyPermissionCmdExe;
     private final DeletePermissionCmdExe deletePermissionCmdExe;
 
     @Operation(summary = "查询权限列表")
-    @PostMapping("/qry")
-    public Response<List<PermissionCO>> qry(@RequestBody PermissionQry qry) {
-        return permissionQryExe.execute(qry);
+    @PostMapping("/list")
+    public Response<List<PermissionCO>> qry(@RequestBody PermissionListQry qry) {
+        return permissionListQryExe.execute(qry);
     }
 
     @Operation(summary = "添加权限")

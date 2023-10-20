@@ -17,11 +17,8 @@ public class ModifyUserPwdCmd {
     @Schema(title = "用户ID")
     @NotNull
     private Integer uid;
-    @Schema(title = "旧密码")
+    @Schema(title = "密码")
     @NotEmpty
-    private String oldPassword;
-    @Schema(title = "新密码")
-    @NotEmpty
-    private String newPassword;
+    private String password;
 
 }

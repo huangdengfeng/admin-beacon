@@ -39,6 +39,15 @@ public class UserPermissionService {
         return pos.stream().map(v -> v.getCode()).collect(Collectors.toList());
     }
 
+    public List<String> getUserRoleNames(@NotNull Integer uid) {
+        if (isAdmin(uid)) {
+            return sysRoleMapper.selectValid().stream().map(v -> v.getName()).collect(
+                    Collectors.toList());
+        }
+        List<SysRolePO> pos = sysRoleMapper.selectByUid(uid);
+        return pos.stream().map(v -> v.getName()).collect(Collectors.toList());
+    }
+
     public List<String> getPermissions(@NotNull Integer uid) {
         if (isAdmin(uid)) {
             return sysPermissionMapper.selectValid().stream().map(v -> v.getCode()).collect(

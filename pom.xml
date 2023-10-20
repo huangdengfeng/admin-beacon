@@ -21,7 +21,9 @@
         <starter.pagehelper.version>1.4.7</starter.pagehelper.version>
         <pagehelper.version>3.0.2</pagehelper.version>
         <guava.version>32.1.2-jre</guava.version>
+        <thumbnailator.version>0.4.20</thumbnailator.version>
         <commons-text.version>1.10.0</commons-text.version>
+        <commons-io.version>2.8.0</commons-io.version>
         <jwt.version>0.11.5</jwt.version>
         <mybatis-generator.version>1.4.2</mybatis-generator.version>
         <springdoc.version>2.2.0</springdoc.version>
@@ -76,6 +78,11 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
             <version>${commons-text.version}</version>
@@ -109,6 +116,11 @@
             <version>${jwt.version}</version>
         </dependency>
         <!-- jwt end-->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>${thumbnailator.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

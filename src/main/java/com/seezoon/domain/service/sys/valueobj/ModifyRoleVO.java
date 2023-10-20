@@ -22,7 +22,7 @@ public class ModifyRoleVO {
     private String name;
     @NotNull
     private Byte status;
-
+    @NotNull
     private Set<Integer> permissionIds;
 
     public ModifyRoleVO(Integer id, String code, String name, Byte status, Set<Integer> permissionIds) {

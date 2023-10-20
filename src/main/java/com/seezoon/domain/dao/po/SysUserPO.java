@@ -44,5 +44,6 @@ public class SysUserPO {
         private String userName;
         private String fuzzyName;
         private Byte status;
+        private Boolean includeSysAdmin;
     }
 }

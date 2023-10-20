@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RoleQry {
+public class PermissionListQry {
 
     @Schema(title = "只查询有效的")
     private boolean onlyValid = false;

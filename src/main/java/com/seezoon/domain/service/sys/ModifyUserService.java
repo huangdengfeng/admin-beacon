@@ -6,6 +6,7 @@ import com.seezoon.domain.dao.mapper.SysUserMapper;
 import com.seezoon.domain.dao.po.SysUserPO;
 import com.seezoon.domain.service.sys.authentication.UserPasswdVerifyService;
 import com.seezoon.domain.service.sys.authentication.support.PasswordEncoder;
+import com.seezoon.domain.service.sys.support.UserSecretKeyGenerator;
 import com.seezoon.domain.service.sys.valueobj.ModifyUserVO;
 import com.seezoon.domain.service.sys.valueobj.UserStatusVO;
 import com.seezoon.infrastructure.error.ErrorCode;
@@ -65,6 +66,19 @@ public class ModifyUserService {
         }
     }
 
+    public void modifyPwd(@NotNull Integer uid, @NotEmpty String password,
+            @NotNull Integer operator) {
+        SysUserPO toUpdate = new SysUserPO();
+        toUpdate.setUid(uid);
+        toUpdate.setPassword(PasswordEncoder.encode(password));
+        toUpdate.setUpdateUser(operator);
+        toUpdate.setSecretKey(UserSecretKeyGenerator.generate());
+        toUpdate.setUpdateTime(LocalDateTime.now());
+        int affectedRow = sysUserMapper.updateByPrimaryKeySelective(toUpdate);
+        expectOneRow(affectedRow);
+    }
+
+
     public void modifyPwd(@NotNull Integer uid, @NotEmpty String oldPassword, @NotEmpty String newPassword,
             @NotNull Integer operator) {
         // 验密
@@ -72,13 +86,7 @@ public class ModifyUserService {
         if (!verified) {
             throw ExceptionFactory.bizException(ErrorCode.ORIGINAL_PASSWD_WRONG);
         }
-        SysUserPO toUpdate = new SysUserPO();
-        toUpdate.setUid(uid);
-        toUpdate.setPassword(PasswordEncoder.encode(newPassword));
-        toUpdate.setUpdateUser(operator);
-        toUpdate.setUpdateTime(LocalDateTime.now());
-        int affectedRow = sysUserMapper.updateByPrimaryKeySelective(toUpdate);
-        expectOneRow(affectedRow);
+        this.modifyPwd(uid, newPassword, operator);
     }
 
 
