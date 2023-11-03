@@ -53,7 +53,7 @@ git clone https://github.com/huangdengfeng/admin-beacon.git
 
   脚本见`build/sql/all.sql`
 
-- **配置seezoon-admin-server**
+- **配置admin-beacon**
 
   在如下配置文件配置**DB**账号密码
 
