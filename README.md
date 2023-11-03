@@ -1,6 +1,18 @@
 ## 简介
 
-**Admin Beacon** 是一个通用后台开发脚手架。主要包含用户管理、RBAC权限控制、生产部署脚本等基础特性。
+**Admin Beacon** 是一个通用管理后台开发脚手架。主要包含用户管理、RBAC权限控制、生产部署脚本等基础特性。
+> 采用DDD架构及CQRS开发理念。
+
+## 运行截图
+
+**登录**
+![login.png](doc%2Fpictures%2Flogin.png)
+**首页**
+![index.png](doc%2Fpictures%2Findex.png)
+**用户**
+![user.png](doc%2Fpictures%2Fuser.png)
+**角色**
+![role.png](doc%2Fpictures%2Frole.png)
 
 ## 技术选型
 
