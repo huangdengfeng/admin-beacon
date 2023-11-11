@@ -2,6 +2,7 @@
 
 **Admin Beacon** 是一个通用管理后台开发脚手架。主要包含用户管理、RBAC权限控制、生产部署脚本等基础特性。
 > 采用DDD架构及CQRS开发理念。
+> golang 版本同步更新中 https://github.com/huangdengfeng/go-admin-beacon
 
 ## 运行截图
 
