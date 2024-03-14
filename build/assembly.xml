@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <!-- http://maven.apache.org/plugins/maven-assembly-plugin/assembly.html# -->
+    <id>release</id>
+    <baseDirectory>${project.artifactId}</baseDirectory>
+    <!-- 打包的类型，如果有N个，将会打N个类型的包 -->
+    <formats>
+        <format>tar.gz</format>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <dependencySets>
+
+        <dependencySet>
+            <useProjectArtifact>true</useProjectArtifact>
+            <outputDirectory>lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- 适合bin 脚本在目录中维护
+            0755->即用户具有读/写/执行权限，组用户和其它用户具有读写权限；
+            0644->即用户具有读写权限，组用户和其它用户具有只读权限；
+            include 通配符说明 ** 任意目录(可以多级)，*为名称，eg:**/*.xml
+           -->
+        <fileSet>
+            <directory>${project.basedir}/build/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+
+        <!-- 项目配置 -->
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>*.*</include>
+            </includes>
+            <excludes>
+                <exclude>*-local.*</exclude>
+            </excludes>
+            <fileMode>0644</fileMode>
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+</assembly>
