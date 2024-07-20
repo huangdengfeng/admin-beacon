@@ -15,4 +15,6 @@ public interface ErrorDefinition {
     int code();
 
     String msg();
+
+    int type();
 }

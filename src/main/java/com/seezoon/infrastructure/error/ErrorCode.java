@@ -9,7 +9,7 @@ public enum ErrorCode implements ErrorDefinition {
     /**
      * 建议公共错误定义在1000-2000 的范围
      */
-    UNSPECIFIED(1000, "system error, %s"),
+    UNKNOWN(1000, "system error, %s"),
 
     PARAM_INVALID(1001, "param invalid, %s"),
 
@@ -45,20 +45,23 @@ public enum ErrorCode implements ErrorDefinition {
     ROLE_LIST_ERROR(2034, "角色列表异常，请刷新角色列表后重新操作");
 
 
-    private static final int BIZ_ERROR_PREFIX = 10000;
-    private static final int SYS_ERROR_PREFIX = 20000;
+    public static final int ERROR_TYPE_BUSINESS = 0;
+    public static final int ERROR_TYPE_SYSTEM = 1;
+
 
     private int code;
     private String msg;
 
+    private int type;
 
     ErrorCode(int code, String msg) {
         this(code, msg, false);
     }
 
     ErrorCode(int code, String msg, boolean sysError) {
-        this.code = sysError ? SYS_ERROR_PREFIX + code : BIZ_ERROR_PREFIX + code;
+        this.code = code;
         this.msg = msg;
+        this.type = sysError ? ERROR_TYPE_SYSTEM : ERROR_TYPE_BUSINESS;
     }
 
     @Override
@@ -69,5 +72,14 @@ public enum ErrorCode implements ErrorDefinition {
     @Override
     public String msg() {
         return msg;
+    }
+
+    @Override
+    public int type() {
+        return type;
+    }
+
+    public boolean IsSystemError() {
+        return type == ERROR_TYPE_SYSTEM;
     }
 }

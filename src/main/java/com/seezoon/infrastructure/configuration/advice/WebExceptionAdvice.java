@@ -6,7 +6,6 @@ import com.seezoon.infrastructure.exception.BizException;
 import com.seezoon.infrastructure.exception.SysException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ValidationException;
-import java.sql.SQLException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
+import java.sql.SQLException;
 
 /**
  * 统一异常处理，将异常转化为错误码错误信息
@@ -97,6 +98,6 @@ public class WebExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public Response exception(Exception e) {
         log.error("unspecified exception", e);
-        return Response.error(ErrorCode.UNSPECIFIED.code(), String.format(ErrorCode.UNSPECIFIED.msg(), e.getMessage()));
+        return Response.error(ErrorCode.UNKNOWN.code(), String.format(ErrorCode.UNKNOWN.msg(), e.getMessage()));
     }
 }
