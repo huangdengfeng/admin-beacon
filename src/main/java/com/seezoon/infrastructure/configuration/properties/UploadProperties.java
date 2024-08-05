@@ -23,7 +23,7 @@ public class UploadProperties {
     // 图片输出质量 1 百分百输出 < 1
     private float imageQuality = 1;
     // 缩放1 为不缩放 < 1
-    private double iamgeScale = 1;
+    private double imageScale = 1;
     // 上传目录
     private String directory = "./upload";
 

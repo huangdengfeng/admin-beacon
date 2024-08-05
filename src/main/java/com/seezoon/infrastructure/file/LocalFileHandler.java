@@ -3,14 +3,15 @@ package com.seezoon.infrastructure.file;
 import com.seezoon.infrastructure.configuration.properties.UploadProperties;
 import com.seezoon.infrastructure.error.ErrorCode;
 import com.seezoon.infrastructure.exception.ExceptionFactory;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
 
 /**
  * 本地文件存储处理
@@ -33,7 +34,7 @@ public class LocalFileHandler implements FileHandler {
      *
      * @param relativePath
      * @param contentType
-     * @param in 会被关闭{@link FileUtils#copyInputStreamToFile(InputStream, File)}
+     * @param in           会被关闭{@link FileUtils#copyInputStreamToFile(InputStream, File)}
      * @throws IOException
      */
     @Override
@@ -44,7 +45,7 @@ public class LocalFileHandler implements FileHandler {
 
         if (isImage(contentType) && uploadProperties.isEnableImageCompress()) {
             InputStream compressedInputStream =
-                    imageCompress(in, uploadProperties.getImageQuality(), uploadProperties.getIamgeScale());
+                    imageCompress(in, uploadProperties.getImageQuality(), uploadProperties.getImageScale());
             FileUtils.copyInputStreamToFile(compressedInputStream, storePath.toFile());
         } else {
             FileUtils.copyInputStreamToFile(in, storePath.toFile());
